@@ -1,6 +1,6 @@
 # Gatelook: Intelligent ANPR & Vehicle Telemetry SaaS
 
-[![GitHub Release](https://img.shields.io/github/v/release/dasocreative/Gatelook?style=for-the-badge&color=3b82f6)](https://github.com/dasocreative/Gatelook/releases)
+[![GitHub Tag](https://img.shields.io/github/v/tag/dasocreative/Gatelook?style=for-the-badge&color=3b82f6)](https://github.com/dasocreative/Gatelook/tags)
 [![MIT License](https://img.shields.io/github/license/dasocreative/Gatelook?style=for-the-badge&color=8b5cf6)](https://github.com/dasocreative/Gatelook/blob/main/LICENSE)
 [![Python Version](https://img.shields.io/badge/python-3.11-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
