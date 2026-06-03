@@ -1,8 +1,8 @@
-# CÉLIA Plate Log: ANPR & Vehicle Intelligence Web SaaS
+# Gatelook: Intelligent ANPR & Vehicle Telemetry SaaS
 
-This repository contains the complete, production-grade source code for a high-performance Automatic Number Plate Recognition (ANPR) and Vehicle Intelligence Web SaaS. 
+Gatelook is a high-performance Automatic Number Plate Recognition (ANPR) and Vehicle Intelligence Web SaaS designed for real-time edge security. 
 
-The application integrates **Ultralytics YOLO** and **PaddleOCR** in a decoupled two-stage computer vision pipeline, utilizing Celery queues and Redis Pub/Sub to track vehicle features and plates asynchronously, and serves telemetry to a Tailwind-styled dark dashboard via WebSockets.
+The application integrates **Ultralytics YOLO** and **PaddleOCR** in a decoupled two-stage computer vision pipeline, utilizing Celery queues and Redis Pub/Sub to track vehicle features, colors, and plates asynchronously. Telemetry and live feeds are served to an adaptive theme-responsive dashboard via WebSockets.
 
 ---
 
@@ -22,17 +22,17 @@ graph TD
     G -->|http://| I
 ```
 
-1. **FastAPI Web Server**: Exposes REST interfaces to upload media or launch camera feeds, mounts static assets, serves log queries, and handles WebSocket streaming.
-2. **Celery Processing Worker**: Ingests frames using OpenCV, processes frames through the AI Pipeline, writes logs to PostgreSQL, and pushes live overlays to Redis.
-3. **Redis Channel (Pub/Sub)**: Relays video frame updates and event streams between worker processes and API processes.
-4. **PostgreSQL**: Stores persistent historical intelligence records (UUID, timestamps, labels, models, confidence, crops).
-5. **Tailwind CSS Dashboard**: Modern dark-themed workspace presenting live playbacks, real-time log tables, analytical distributions, and database filters.
+1. **FastAPI Web Server**: Exposes REST interfaces to upload media, mount static assets, serve log queries, and broadcast WebSocket video/event streams.
+2. **Celery Processing Worker**: Ingests camera streams using OpenCV, processes frames through the AI Pipeline, persists logs to PostgreSQL, and relays live overlays to Redis.
+3. **Redis Pub/Sub**: Relays real-time frame telemetry and event data from worker processes to active WebSocket clients.
+4. **PostgreSQL**: Stores persistent historical intelligence logs (UUID, timestamps, labels, models, colors, confidence, crops).
+5. **Adaptive UI Dashboard**: Premium web application featuring dynamic glassmorphism panels, Lucide icon design systems, dark/light/system theme toggles, live session trackers, and historical log filters.
 
 ---
 
 ## 2. Fast Launch (Docker Compose)
 
-The system is configured to work out-of-the-box using simulated vision telemetry (`MOCK_VISION_PIPELINE=True`) so developers can validate compilation and system features instantly without downloading heavy model weights or requiring a GPU.
+The system is configured to run out-of-the-box using simulated vision telemetry (`MOCK_VISION_PIPELINE=True`) so you can validate build, compilation, and system features instantly without downloading heavy model weights.
 
 ### Setup and Start
 Ensure you have Docker and Docker Compose installed, then run:
@@ -66,7 +66,9 @@ To toggle the application from simulated to real AI models (YOLO + PaddleOCR):
 
 ---
 
-## 4. Normalization and Moroccan Plates
-The vision pipeline parses and normalizes OCR readouts using regex:
-- **Moroccan Format**: Detects and groups alphanumeric plates like `12345-أ-6` or `12345/أ/6` using the Unicode range matching (`[\u0600-\u06FF]`).
-- **Standard Alphanumeric**: Filters and cleans global alphanumeric plates between 5-10 characters long, formatting to uppercase strings.
+## 4. Vehicle Attribute Mapping & Moroccan Plate Parsing
+The AI pipeline parses and normalizes OCR readouts using regex:
+- **Moroccan Format**: Detects and groups Moroccan alphanumeric plates like `12345-أ-6` or `12345/أ/6` using Unicode range matching (`[\u0600-\u06FF]`). Only valid Moroccan plates are logged and cropped to disk, filtering out decals, watermarks, or false positives.
+- **Grayscale and Paint Pixel-Binning**: Leverages HSV priority color mapping (rather than simple averages) to classify vehicle paint colors (`Blue`, `Red`, `Green`, `Orange/Yellow`, `Purple`, `White`, `Black`, `Grey`).
+- **Vehicle Aspect Ratio Matching**: Differentiates hatchback models (`Dacia Sandero`) from sedan models (`Dacia Logan`) using fine-tuned bounding box ratios.
+- **De-duplication**: Tracks session-wide processed plates to prevent duplicate logs for the same vehicle track ID, while dynamically updating crop files on disk with the highest confidence read.
