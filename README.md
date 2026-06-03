@@ -1,5 +1,12 @@
 # Gatelook: Intelligent ANPR & Vehicle Telemetry SaaS
 
+[![GitHub Release](https://img.shields.io/github/v/release/dasocreative/Gatelook?style=for-the-badge&color=3b82f6)](https://github.com/dasocreative/Gatelook/releases)
+[![MIT License](https://img.shields.io/github/license/dasocreative/Gatelook?style=for-the-badge&color=8b5cf6)](https://github.com/dasocreative/Gatelook/blob/main/LICENSE)
+[![Python Version](https://img.shields.io/badge/python-3.11-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)](https://react.dev/)
+[![Docker](https://img.shields.io/badge/docker-%232496ED.svg?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
+
 Gatelook is a high-performance Automatic Number Plate Recognition (ANPR) and Vehicle Intelligence Web SaaS designed for real-time edge security. 
 
 The application integrates **Ultralytics YOLO** and **PaddleOCR** in a decoupled two-stage computer vision pipeline, utilizing Celery queues and Redis Pub/Sub to track vehicle features, colors, and plates asynchronously. Telemetry and live feeds are served to an adaptive theme-responsive dashboard via WebSockets.
