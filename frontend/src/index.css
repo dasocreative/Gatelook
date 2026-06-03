@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --tooltip-bg: #ffffff;
+  --tooltip-border: #e4e4e7;
+  --tooltip-text: #18181b;
+}
+
+.dark {
+  --tooltip-bg: #18181b;
+  --tooltip-border: #27272a;
+  --tooltip-text: #ffffff;
+}
+
+@layer base {
+  body {
+    @apply bg-zinc-50 dark:bg-zinc-950 text-zinc-800 dark:text-zinc-100 font-sans transition-colors duration-200;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+}
+
+/* Premium Adaptive Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-zinc-50 dark:bg-zinc-950;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-zinc-200 dark:bg-zinc-800 rounded-full transition-colors;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-zinc-300 dark:bg-zinc-700;
+}
+
+/* Responsive Theme-Aware Glassmorphism Panels */
+.glass-panel {
+  @apply bg-white/70 dark:bg-zinc-900/60 backdrop-blur-lg border border-zinc-200/60 dark:border-zinc-800/40;
+}
+
+.glass-card-hover {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card-hover:hover {
+  @apply bg-zinc-100/50 dark:bg-zinc-800/50 border-blue-500/30 dark:border-blue-500/20 shadow-lg shadow-blue-500/5;
+  transform: translateY(-2px);
+}
+
+/* Neon Target/Inference Badges */
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 0.8;
+    box-shadow: 0 0 12px rgba(59, 130, 246, 0.2);
+  }
+  50% {
+    opacity: 1;
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.45);
+  }
+}
+
+.glow-active {
+  animation: pulse-glow 2s infinite ease-in-out;
+}

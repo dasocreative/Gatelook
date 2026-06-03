@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+.venv/
+venv/
+env/
+__pycache__/
+*.pyc
+
+# Local settings
+.env
+.DS_Store
+
+# Large model files / weights
+*.pt
+
+# Dynamic outputs and crops
+static/crops/*
+!static/crops/.gitkeep
+
+# IDE configs
+.vscode/
+.idea/
+.gemini/
